@@ -1,0 +1,18 @@
+
+	# cat=basic; settings=formName:tsStyleConfigForm,width:600px,height:50px; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->textarea];label=Textarea:Configure the sizes extra 
+texarea =
+
+	# cat=basic; settings=formName:tsStyleConfigForm; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->page];label=Select a page:Create a wizard to select a page
+page =
+
+	# cat=basic; settings=table:pages,where:title!="",limit:10,orderBy:title ASC; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->recordList]; label=Choose a reord:Build a complete customized query and output it as a select field
+recordList =
+
+	# cat=basic; settings=file:typo3conf/ext/constantsextended/ext_icon.gif; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->image];label=Output an image:Use an image to demonstrate things
+image =
+
+# cat=basic; settings=width:600,height:400,src:www.typo3.org; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->iframe];label=Output an Iframe: Use an iframe to show a help page or anything else
+iframe =	
+
+	# cat=basic; settings=code:<h1>This is a test</h1><br /><strong>Pure HTML</strong>; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->html];  label=Output HTML code: Use any HTML you want (check the manual for restrictions)
+html =	

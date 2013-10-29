@@ -1,0 +1,20 @@
+plugin.constantsextended {
+	# cat=plugin.constantsextended/file/10; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->textarea];settings=width:600px,height:50px;  label=Textarea:Configure the sizes extra 
+texarea =
+
+	# cat=plugin.constantsextended/file/40; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->page];settings=; label=Select a page:Create a wizard to select a page
+page =
+
+	# cat=plugin.constantsextended/file/60; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->recordList];settings=table:pages,where:title!="",limit:10,orderBy:title ASC;  label=Choose a reord:Build a complete customized query and output it as a select field
+recordList =
+
+	# cat=plugin.constantsextended/file/70; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->image];settings=file:typo3conf/ext/constantsextended/ext_icon.gif;  label=Output an image:Use an image to demonstrate things
+image =
+
+# cat=plugin.constantsextended/file/80; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->iframe];settings=width:600,height:400,src:www.typo3.org;  label=Output an Iframe: Use an iframe to show a help page or anything else
+iframe =	
+
+	# cat=plugin.constantsextended/file/90; type=user[EXT:constantsextended/class.tx_constantsextended.php:&tx_constantsextended->html];settings=code:<h1>This is a test</h1><br /><strong>Pure HTML</strong>;  label=Output HTML code: Use any HTML you want (check the manual for restrictions)
+html =	
+
+}
