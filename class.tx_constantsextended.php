@@ -29,8 +29,12 @@
  * This copyright notice MUST APPEAR in all copies of the file!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Type\Icon\IconState;
 use TYPO3\CMS\Core\TypoScript\ConfigurationForm;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -151,6 +155,8 @@ class tx_constantsextended
      * @param ConfigurationForm $pObj
      *
      * @return string HTML output
+     * @throws \TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException
+     * @throws \InvalidArgumentException
      */
     public function page($params, $pObj)
     {
@@ -162,12 +168,44 @@ class tx_constantsextended
         $conf = $this->getConf($fieldName, $pObj);
         $formName = ($conf['formName'] !== '') ? $conf['formName'] : 'editForm';
 
-        $input = '<input name="'.$fieldName.'" value="'.$fieldValue.'" />';
+        $input = '<input class="form-control" style="max-width: 90%" name="'.$fieldName.'" value="'.$fieldValue.'" />';
+
+        /** @var IconFactory $iconFactory */
+        $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+        $icon = $iconFactory->getIcon('actions-wizard-link', Icon::SIZE_DEFAULT);
+        $iconMarkup = $icon->render();
+
+        /** @var UriBuilder $uriBuilder */
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $fieldchangefunc = [
+            'typo3form.fieldGet'      => null,
+            'TBE_EDITOR_fieldChanged' => 'null',
+        ];
+        $uri = $uriBuilder->buildUriFromRoute(
+            'wizard_link',
+            [
+                'P'          => [
+                    'currentValue'        => $fieldValue,
+                    'field'               => $fieldName,
+                    'formName'            => $formName,
+                    'itemName'            => $fieldName,
+                    'pid'                 => $fieldValue,
+                    'fieldChangeFunc'     => $fieldchangefunc,
+                    'fieldChangeFuncHash' => GeneralUtility::hmac(serialize($fieldchangefunc)),
+                ],
+                'height'     => 300,
+                'width'      => 500,
+                'menubar'    => 0,
+                'scrollbars' => 1,
+            ]
+        );
 
         /* @todo    Don't hardcode the inclusion of the wizard this way.  Use more backend APIs. */
-        $wizard = '<a href="#" onclick="this.blur(); vHWin=window.open(\'../../../../typo3/browse_links.php?mode=wizard&amp;P[field]='.$fieldName.'&amp;P[formName]='.$formName.'&amp;P[itemName]='.$fieldName.'&amp;P[fieldChangeFunc][typo3form.fieldGet]=null&amp;P[fieldChangeFunc][TBE_EDITOR_fieldChanged]=null\',\'popUpID478be36b64\',\'height=300,width=500,status=0,menubar=0,scrollbars=1\'); vHWin.focus(); return false;">
-								<img src="../../../../typo3/sysext/t3skin/icons/gfx/link_popup.gif" width="16" height="15" border="0" alt="Link" title="Link" />
-							</a>';
+        $wizard = '<a href="#" onclick="this.blur(); vHWin=window.open(\'../../../../typo3/browse_links.php?mode=wizard&amp;P[field]='.$fieldName.'&amp;P[formName]='.$formName.'&amp;P[itemName]='.$fieldName.'&amp;P[fieldChangeFunc][typo3form.fieldGet]=null&amp;P[fieldChangeFunc][TBE_EDITOR_fieldChanged]=null\',\'popUpID478be36b64\',\'height=300,width=500,status=0,menubar=0,scrollbars=1\'); vHWin.focus(); return false;">'.$iconMarkup.'</a>';
+
+        $wizard = "<a href='#' onclick='this.blur(); vHWin=window.open(\"$uri\", \"popUpID478be36b64\",\"height=300,width=500,status=0,menubar=0,scrollbars=1\"); vHWin.focus(); return false;'>"
+            .$iconMarkup
+            .'</a>';
 
         return $input.$wizard;
     }
@@ -288,14 +326,14 @@ class tx_constantsextended
 				var val = $("field'.$key.'").value;
 				str2 = val;  
 				while(str2.indexOf("\n") != -1) { 
-					str2 = str2.replace("\n", "#####"); 
-				}  
-	
+					str2 = str2.replace("\n", "#####");
+				}
+
 				$("field'.$key.'").value = str2;
-				
+
 			}
 		</script>
-		
+
 		';
 
         $field .= $js;
