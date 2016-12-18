@@ -31,7 +31,7 @@
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
-use TYPO3\CMS\Core\TypoScript\TemplateService;
+use TYPO3\CMS\Core\TypoScript\ConfigurationForm;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -45,10 +45,10 @@ class tx_constantsextended
     /**
      * Builds a record list of any table
      *
-     * @param        array $params :  Contains fieldName and fieldValue.
-     * @param        obj   $pObj   :  Objet
+     * @param array             $params
+     * @param ConfigurationForm $pObj
      *
-     * @return        string        HTML output
+     * @return string
      */
     public function recordList($params, $pObj)
     {
@@ -102,8 +102,8 @@ class tx_constantsextended
     /**
      * Get the possible configuration of a single field
      *
-     * @param string          $fieldName Name of the field
-     * @param TemplateService $pObj
+     * @param string            $fieldName Name of the field
+     * @param ConfigurationForm $pObj
      *
      * @return array configuration
      */
@@ -147,8 +147,8 @@ class tx_constantsextended
     /**
      * Builds an input form that also includes the link popup wizard.
      *
-     * @param array           $params Contains fieldName and fieldValue.
-     * @param TemplateService $pObj
+     * @param array             $params Contains fieldName and fieldValue.
+     * @param ConfigurationForm $pObj
      *
      * @return string HTML output
      */
@@ -175,8 +175,8 @@ class tx_constantsextended
     /**
      * Show an image, mainly for helping people (manual, ...)
      *
-     * @param array           $params Contains fieldName and fieldValue.
-     * @param TemplateService $pObj
+     * @param array             $params Contains fieldName and fieldValue.
+     * @param ConfigurationForm $pObj
      *
      * @return string
      */
@@ -196,8 +196,8 @@ class tx_constantsextended
     /**
      * Show an iframe
      *
-     * @param array           $params Contains fieldName and fieldValue.
-     * @param TemplateService $pObj   Objet
+     * @param array             $params Contains fieldName and fieldValue.
+     * @param ConfigurationForm $pObj   Objet
      *
      * @return string
      */
@@ -222,8 +222,8 @@ class tx_constantsextended
     }
 
     /**
-     * @param array           $params
-     * @param TemplateService $pObj
+     * @param array             $params
+     * @param ConfigurationForm $pObj
      *
      * @return string
      */
@@ -245,8 +245,8 @@ class tx_constantsextended
     /**
      * Builds an textarea
      *
-     * @param array           $params
-     * @param TemplateService $pObj
+     * @param array             $params
+     * @param ConfigurationForm $pObj
      *
      * @return string
      */
