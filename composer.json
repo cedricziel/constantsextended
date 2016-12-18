@@ -1,0 +1,18 @@
+{
+	"name": "georgringer/constantsextended",
+	"description": "Extent the functionality of the constant editor and the configuration of extensions in the extension manager by adding types like textarea and so much more",
+	"type": "typo3-cms-extension",
+	"license": "GPL2+",
+	"authors": [
+		{
+			"name": "Georg Ringer (just2b)",
+			"email": "www.ringer.it"
+		}
+	],
+	"require": {},
+	"autoload": {
+		"classmap": [
+			"class.tx_constantsextended.php"
+		]
+	}
+}
