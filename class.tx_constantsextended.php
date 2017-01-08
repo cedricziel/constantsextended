@@ -29,6 +29,8 @@
  * This copyright notice MUST APPEAR in all copies of the file!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Form\Element\InputTextElement;
+use TYPO3\CMS\Backend\Form\NodeFactory;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
@@ -199,6 +201,39 @@ class tx_constantsextended
                 'scrollbars' => 1,
             ]
         );
+
+        /** @var NodeFactory $nodeFactory */
+        $nodeFactory = GeneralUtility::makeInstance(NodeFactory::class);
+
+        /** @var InputTextElement $textInput */
+        $fieldConfiguration = [
+            'parameterArray' => [
+                'fieldConf' => [
+                    'config' => [
+                        'wizards' => [
+                            'link' => [
+                                'type' => 'popup',
+                                'title' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_link_formlabel',
+                                'icon' => 'actions-wizard-link',
+                                'module' => [
+                                    'name' => 'wizard_link',
+                                ],
+                                'JSopenParams' => 'height=800,width=600,status=0,menubar=0,scrollbars=1',
+                                'params' => [
+                                    'blindLinkOptions' => 'folder',
+                                    'blindLinkFields' => 'class, target',
+                                    'allowedExtensions' => 'jpg',
+                                ],
+                            ],
+                        ]
+                    ]
+                ],
+                'itemFormElValue' => $fieldValue,
+            ],
+        ];
+
+        $textInput = GeneralUtility::makeInstance(InputTextElement::class, $nodeFactory, $fieldConfiguration);
+        return $textInput->render()['html'];
 
         /* @todo    Don't hardcode the inclusion of the wizard this way.  Use more backend APIs. */
         $wizard = '<a href="#" onclick="this.blur(); vHWin=window.open(\'../../../../typo3/browse_links.php?mode=wizard&amp;P[field]='.$fieldName.'&amp;P[formName]='.$formName.'&amp;P[itemName]='.$fieldName.'&amp;P[fieldChangeFunc][typo3form.fieldGet]=null&amp;P[fieldChangeFunc][TBE_EDITOR_fieldChanged]=null\',\'popUpID478be36b64\',\'height=300,width=500,status=0,menubar=0,scrollbars=1\'); vHWin.focus(); return false;">'.$iconMarkup.'</a>';
